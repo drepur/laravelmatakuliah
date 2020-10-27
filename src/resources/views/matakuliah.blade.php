@@ -9,29 +9,35 @@
 
 </head>
 <body>
-    <form action="{{ route('matakuliah.simpan') }}" method="POST" >
+    <form action="{{  isset($data)
+                        ?route('matakuliah.update',['id' => $data->id])
+                        :route('matakuliah.simpan') }}" method="POST" >
         @csrf
         <div class="container">
         <h2>Form Matakuliah</h2>
         <hr>
             <div class="form-group">
             <label for="kodemk">Kode Matakuliah</label>
-            <input type="text" name="kodemk" class="form-control">
+            <input type="text" name="kodemk" class="form-control"
+                value={{ isset($data)?$data->kodemk:"" }}>
             </div>
 
             <div class="form-group">
             <label for="mk">Matakuliah</label>
-            <input type="text" name="mk" class="form-control">
+            <input type="text" name="mk" class="form-control"
+                value={{ isset($data)?$data->mk:"" }}>
             </div>
 
             <div class="form-group">
             <label for="dosen">Dosen</label>
-            <input type="text" name="dosen" class="form-control">
+            <input type="text" name="dosen" class="form-control"
+                value={{ isset($data)?$data->dosen:"" }}>
             </div>
         
             <div class="form-group">
             <label for="noruang">No. Ruangan</label>
-            <input type="text" name="noruang" class="form-control"> 
+            <input type="text" name="noruang" class="form-control"
+                value={{ isset($data)?$data->noruang:"" }}> 
             </div>
 
             <input type="submit" value="Simpan" class="btn btn-info btn-block"> 
@@ -44,6 +50,7 @@
                 <th>Matakuliah</th>
                 <th>Dosen</th>
                 <th>No. Ruangan</th>
+                <th colspan="2">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -53,6 +60,10 @@
                     <td>{{ $item->mk }}</td>
                     <td>{{ $item->dosen }}</td>
                     <td>{{ $item->noruang }}</td>
+                    <td> <a href="{{ route('matakuliah.tampil',['id' => $item->id]) }}" 
+                        class="btn btn-warning btn-block">Rubah</a></td>
+                    <td> <a href="{{ route('matakuliah.hapus',['id' => $item->id]) }}" 
+                        class="btn btn-danger btn-block">Hapus</a></td>
                 </tr>
             @endforeach
         </tbody>

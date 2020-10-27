@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use \App\Http\Controllers\MatakuliahController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,17 @@ use Illuminate\Support\Facades\Route;
     return view('matakuliah');
 })->name('matakuliah.index');*/
 
-Route::POST('/matakuliah/simpan',[\App\Http\Controllers\MatakuliahController::class,'simpan'])
+Route::get('/', [MatakuliahController::class,'index'])
+    ->name('matakuliah.index');
+
+Route::get('/matakuliah/hapus/{id}', [MatakuliahController::class,'hapus'])
+    ->name('matakuliah.hapus');
+
+Route::get('/matakuliah/tampil/{id}', [MatakuliahController::class,'tampil'])
+    ->name('matakuliah.tampil');
+
+Route::post('/matakuliah/simpan/',[MatakuliahController::class,'simpan'])
     ->name('matakuliah.simpan');
 
-Route::get('/', [\App\Http\Controllers\MatakuliahController::class,'index'])
-    ->name('matakuliah.index');
+Route::post('/matakuliah/rubah/{id}', [MatakuliahController::class,'update'])
+    ->name('matakuliah.update');
